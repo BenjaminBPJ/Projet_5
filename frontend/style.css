@@ -73,7 +73,17 @@ main{
     width: 20%;
     text-align: center;
 }
-
+.card-produit{
+    font-size: 1.2em;
+    color:  #955ee5;
+    padding-bottom: 2em;
+    border:#dc7d15 solid 0.1em;
+    background-color: #f3e9f1;
+    padding: 2em;
+    margin:1em;
+    width: 45%;
+    text-align: center;
+}
 .teddy{
     width: 60%;
     height: 40%;

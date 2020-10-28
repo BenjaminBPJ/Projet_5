@@ -1,5 +1,4 @@
-let url = `http://localhost:3000/api/teddies`
-fetch (url) // connection à l'API
+fetch (`http://localhost:3000/api/teddies`) // connection à l'API
     .then(function(response){
         return response.json()
     })
@@ -23,7 +22,7 @@ fetch (url) // connection à l'API
 
 
 
-
+    
 
 
 
