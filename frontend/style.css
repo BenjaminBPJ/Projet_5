@@ -84,6 +84,11 @@ main{
     width: 45%;
     text-align: center;
 }
+.quantite{
+    width: 4em;
+    margin: 1em;
+    padding: 0.5em;
+}
 .teddy{
     width: 60%;
     height: 40%;
