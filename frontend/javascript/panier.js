@@ -1,13 +1,10 @@
-let nomElt = document.getElementById("lastName");
-nomElt.value = "VotreNom";
+fetch(`http://localhost:3000/api/teddies`) // connection à l'API
+    .then(function (response) {
+        return response.json()
+    })
+    .then(function (data) {  // vérification que l'on a bien les données du JSON
+        console.log(data);
 
-// Affichage d'un message contextuel pour la saisie du nom
-nomElt.addEventListener("focus", function () {
-    document.getElementById("aideNom").textContent = "Entrez votre nom";
-});
-// Suppression du message contextuel pour la saisie du nom
-nomElt.addEventListener("blur", function (e) {
-    document.getElementById("aideNom").textContent = "";
-});
+})
 
 

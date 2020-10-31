@@ -10,44 +10,56 @@
 
     <title>Oriteddy, les ours en peluche fait maison</title>
 </head>
-<body>
-<header class="header">
-    <a href="index.html">
-        <img src="images/logo.png" alt="logo de l'entreprise Orinoco" class="logo" />
-    </a>
-    <nav>
-        <ul>
-            <Li>
-                <a href="index.html">Accueil</a>
-            </Li>
-            <li>
-                <a href="panier.html">Panier</a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<section id="form">
-    <form>
-        <label for="lastName">Nom</label>
-        <input type="text" id="lastName" name="userLastName" required>
-        <span id="aideNom"></span><br>
-        <label for="firstName">Prénom</label>
-        <input type="text" id="firstName" name="userFirstName" required><br>
-        <label for="address">Adresse</label>
-        <input type="text" id="address" name="userAddress" required><br>
-        <label for="city">Ville</label>
-        <input type="text" id="city" name="userCity" required><br>
-        <label for="email">E-mail</label>
-        <input type="email" id="email" name="userEmail" required><br>
-        <button type="submit" id="submitButton">Envoyer</button>
-    </form>
-</section>
-<footer>
-    <a href="mailto:orinoco@gmail.com">Contact</a>
-    <a href="index.html">Mentions légales</a>
-</footer>
 
-<script src="javascript/panier.js"></script>
+<body>
+    <header class="header">
+        <a href="index.html">
+            <img src="images/logo.png" alt="logo de l'entreprise Orinoco" class="logo" />
+        </a>
+        <nav>
+            <ul>
+                <Li>
+                    <a href="index.html">Accueil</a>
+                </Li>
+                <li>
+                    <a href="panier.html">Panier</a>
+                </li>
+            </ul>
+        </nav>
+    </header>
+    <main class="main-panier">
+        <table>
+            <thead>
+                <tr>
+                    <th>Produit</th>
+                    <th>Couleur</th>
+                    <th>Prix</th>
+                </tr>
+            </thead>
+        </table>
+        <section id="form">
+            <form>
+                <label for="lastName">Nom</label>
+                <input type="text" id="lastName" name="userLastName" required>
+                <span id="aideNom"></span><br>
+                <label for="firstName">Prénom</label>
+                <input type="text" id="firstName" name="userFirstName" required><br>
+                <label for="address">Adresse</label>
+                <input type="text" id="address" name="userAddress" required><br>
+                <label for="city">Ville</label>
+                <input type="text" id="city" name="userCity" required><br>
+                <label for="email">E-mail</label>
+                <input type="email" id="email" name="userEmail" required><br>
+                <button type="submit" id="submitButton">Envoyer</button>
+            </form>
+        </section>
+    </main>
+    <footer>
+        <a href="mailto:orinoco@gmail.com">Contact</a>
+        <a href="index.html">Mentions légales</a>
+    </footer>
+
+    <script src="javascript/panier.js"></script>
 
 </body>
 
