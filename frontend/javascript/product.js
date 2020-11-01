@@ -41,21 +41,48 @@ fetch(url + urlParam) // connection à l'API avec l'ID du bon produit
 
 // création du panier (cart)
 let cart = document.querySelector('button')
-
 cart.addEventListener('click', function (){
-    cartNumbers()
-function cartNumbers (){
+    cartNumbers(data)
+
+// fonction qui permet d'incrémenter le nombre de produit + ensuite produit (setItem)
+function cartNumbers (data){
         let productNumbers = localStorage.getItem('cartNumbers')
 
         if (productNumbers){
             localStorage.setItem('cartNumbers', JSON.parse(productNumbers) + 1)
         }else {
-            localStorage.setItem('cartNumbers', 1)}}
-})
+            localStorage.setItem('cartNumbers', 1)}
 
+setItems(data)
 
-})
+// Fonction du dessus qui permet d'ajouter un produit dans le panier
+function setItems (data) {
+    let cartItems= {
+        [data.name] : data
+        }
 
-
-
+        cartItems = localStorage.getItem('productsInCart')
+        cartItems = JSON.parse(cartItems)
     
+        if (cartItems != null) {
+            if (cartItems [data.name] == undefined) {
+                cartItems = {
+                    ... cartItems,
+                    [data.name] : data
+                }
+            }
+        }else {
+            cartItems = {
+                [data.name] : data
+            }
+        }
+
+    localStorage.setItem('productsInCart', JSON.stringify(cartItems))
+            }
+
+}
+
+})
+
+
+})
