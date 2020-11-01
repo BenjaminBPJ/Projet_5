@@ -65,13 +65,13 @@ function setItems (data) {
         cartItems = JSON.parse(cartItems)
     
         if (cartItems != null) {
-            if (cartItems [data.name] == undefined) {
+            if (cartItems [data.name] == undefined) { // ajoute un produit en plus des autres
                 cartItems = {
                     ... cartItems,
                     [data.name] : data
                 }
-            }
-        }else {
+            } 
+        }else {  // crée un produit dans le panier car carItems = null
             cartItems = {
                 [data.name] : data
             }
@@ -79,6 +79,18 @@ function setItems (data) {
 
     localStorage.setItem('productsInCart', JSON.stringify(cartItems))
             }
+
+            totalCost(data)
+
+function totalCost(data){
+    let cartCost = localStorage.getItem('totalCost')
+    if (cartCost != null){
+        cartCost = JSON.parse(cartCost)
+        localStorage.setItem('totalCost', cartCost + data.price / 100)
+    }else{
+        localStorage.setItem('totalCost', data.price / 100)
+    }
+}
 
 }
 
