@@ -1,11 +1,12 @@
 let getId = window.location.search  // avoir l'Id de connection
 let urlParam = getId.replace("?id=", "") // connecter l'ID à la page
 
-let id = function () {
-    return urlParam
-}
+
+
 
 let url = `http://localhost:3000/api/teddies/`
+let data = request(url + urlParam)
+console.log(data)
 fetch(url + urlParam) // connection à l'API avec l'ID du bon produit
     .then(function (response) {
         return response.json()
@@ -13,17 +14,19 @@ fetch(url + urlParam) // connection à l'API avec l'ID du bon produit
     .then(function (data) {  // vérfication que l'on a bien les données du JSON
         console.log(data);
 
-        let article = document.createElement(`article`) // création de l'article principal
-        document.querySelector("main").appendChild(article)
-        article.classList.add("card-produit")
-
-        article.innerHTML = `<h3>${data.name}</h3> 
-                             <img src= ${data.imageUrl} class="teddy"/>
-                             <p>${data.description}<p>
-                             <p><strong>Couleur : </strong></p>
-                             <select></select>
-                             <p><strong>Prix : </strong>${data.price / 100} €</p>
-                             <button>Mettre dans mon panier</button>`
+        
+            let article = document.createElement(`article`) // création de l'article principal
+            document.querySelector("main").appendChild(article)
+            article.classList.add("card-produit")
+        
+            article.innerHTML = `<h3>${data.name}</h3> 
+                                 <img src= ${data.imageUrl} class="teddy"/>
+                                 <p>${data.description}<p>
+                                 <p><strong>Couleur : </strong></p>
+                                 <select></select>
+                                 <p><strong>Prix : </strong>${data.price / 100} €</p>
+                                 <button>Mettre dans mon panier</button>`
+        
 
         // création du déroulant multichoix des couleurs //
         let option = document.createElement('option') 
@@ -42,6 +45,7 @@ fetch(url + urlParam) // connection à l'API avec l'ID du bon produit
 // création du panier (cart)
 let cart = document.querySelector('button')
 cart.addEventListener('click', function (){
+    alert('Votre commande a été prise en compte')
     cartNumbers(data)
 
 // fonction qui permet d'incrémenter le nombre de produit + ensuite produit (setItem)
@@ -57,26 +61,27 @@ setItems(data)
 
 // Fonction du dessus qui permet d'ajouter un produit dans le panier
 function setItems (data) {
+    let productNumbers = localStorage.getItem('cartNumbers')
     let cartItems= {
-        [data.name] : data
+        [productNumbers] : data
         }
 
         cartItems = localStorage.getItem('productsInCart')
         cartItems = JSON.parse(cartItems)
     
         if (cartItems != null) {
-            if (cartItems [data.name] == undefined) { // ajoute un produit en plus des autres
+            if (cartItems [productNumbers] == undefined) { // ajoute un produit en plus des autres
                 cartItems = {
                     ... cartItems,
-                    [data.name] : data
+                    [productNumbers] : data
                 }
             } 
         }else {  // crée un produit dans le panier car carItems = null
             cartItems = {
-                [data.name] : data
+                [productNumbers] : data
             }
         }
-
+console.log(cartItems, data.name, data)
     localStorage.setItem('productsInCart', JSON.stringify(cartItems))
             }
 

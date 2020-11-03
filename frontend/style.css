@@ -45,14 +45,19 @@ h1{
     margin-top: 0;
     padding-top: 1em;
 }
-section{
-    background-color: #955ee5;
-    padding-bottom: 2em;
-}
+
 h2{
     color: #dc7d15;
 }
 main{
+    background-color:  #955ee5;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    padding: 1em;
+}
+.main-index{
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -108,8 +113,28 @@ footer{
 }
 
 /* Tableau panier */
-table{
-    width : 100%
+.panier{
+    width: 80%;
+}
+.titre-panier{
+    display: flex;
+}
+.produit-panier{
+    display: flex;
+    width: 80%;
+    border-bottom: 0.1em #dc7d15 solid;
+    padding: 1em;
+}
+.prix-panier{
+    width: 20%;
+    border-bottom: 0.1em #dc7d15 solid ;
+    padding: 1em;
+}
+.teddy-panier{
+    width: 10%;
+}
+.sous-panier{
+    display: flex;
 }
 
 @media screen and (max-width:768px){
