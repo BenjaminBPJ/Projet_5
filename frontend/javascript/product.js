@@ -2,8 +2,6 @@ let getId = window.location.search  // avoir l'Id de connection
 let urlParam = getId.replace("?id=", "") // connecter l'ID à la page
 
 
-
-
 let url = `http://localhost:3000/api/teddies/`
 let data = request(url + urlParam)
 console.log(data)
@@ -13,20 +11,6 @@ fetch(url + urlParam) // connection à l'API avec l'ID du bon produit
     })
     .then(function (data) {  // vérfication que l'on a bien les données du JSON
         console.log(data);
-
-        
-            let article = document.createElement(`article`) // création de l'article principal
-            document.querySelector("main").appendChild(article)
-            article.classList.add("card-produit")
-        
-            article.innerHTML = `<h3>${data.name}</h3> 
-                                 <img src= ${data.imageUrl} class="teddy"/>
-                                 <p>${data.description}<p>
-                                 <p><strong>Couleur : </strong></p>
-                                 <select></select>
-                                 <p><strong>Prix : </strong>${data.price / 100} €</p>
-                                 <button>Mettre dans mon panier</button>`
-        
 
         // création du déroulant multichoix des couleurs //
         let option = document.createElement('option') 

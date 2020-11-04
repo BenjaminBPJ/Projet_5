@@ -4,10 +4,9 @@ async function request(url){
     return data
 }
 
-async function requestId (url, urlParam){
-    let responseId = await fetch(url + urlParam)
-    let dataId = await response.json()
-    return dataId
-}
+// variables qui permettent d'avoir un affichage de produit dynamique sur la page produit //
+let getId = window.location.search  // avoir l'Id de connection
+let urlParam = getId.replace("?id=", "") // connecter l'ID à la page
+
 
 
