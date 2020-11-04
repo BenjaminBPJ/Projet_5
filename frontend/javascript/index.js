@@ -5,21 +5,11 @@ function listeProduct(){
             createCardProduct(product) 
          })
     })
+    .catch((err) => console.log(`pas de serveur:${err}`))
 }
 
 listeProduct()
-    /*fetch(`http://localhost:3000/api/teddies`) // connection à l'API
-    .then(function (response) {
-        return response.json()
-    })
-    .then(function (data) {  // vérfication que l'on a bien les données du JSON
-        console.log(data);
 
-        data.forEach(product => { // création des cartes produits
-            createCardProduct(product)
-        })
-    })
-    .catch((err) => console.log(`pas de serveur:${err}`));*/
 
 
 

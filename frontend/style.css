@@ -35,6 +35,7 @@ header{
     align-items: center;
 }
 .titre-principal{
+    background-color:  #955ee5;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -113,30 +114,25 @@ footer{
 }
 
 /* Tableau panier */
-.panier{
-    width: 80%;
+table{
+    text-align: center;
+    border-collapse: collapse;
 }
-.titre-panier{
-    display: flex;
+td{
+    border: solid 0.1em #dc7d15;
 }
-.produit-panier{
-    display: flex;
-    width: 80%;
-    border-bottom: 0.1em #dc7d15 solid;
-    padding: 1em;
-}
-.prix-panier{
-    width: 20%;
-    border-bottom: 0.1em #dc7d15 solid ;
-    padding: 1em;
+.img-panier{
+    width: 40%;
 }
 .teddy-panier{
-    width: 10%;
+    width: 25%;
 }
-.sous-panier{
-    display: flex;
+.produit-name-panier{
+    width: 20%;
 }
-
+.prix-produit-panier{
+    width: 20%;
+}
 @media screen and (max-width:768px){
     body{
         display: block;
