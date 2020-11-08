@@ -19,7 +19,7 @@ function cartNumbers(){
 // création de l'objet produit dans le panier
 function setItems (value) {
     let productNumbers = localStorage.getItem('cartNumbers')
-    let cartItems= {
+    let cartItems = {
         [productNumbers] : value
         }
         cartItems = localStorage.getItem('productsInCart')
@@ -48,4 +48,15 @@ function totalCost(total){
     }else{
         localStorage.setItem('totalCost', total.price / 100)
     }
+}
+
+function deleteItem(value){
+    let productNumbers = localStorage.getItem('cartNumbers')
+    let cartItems = {
+        [productNumbers] : value
+        }
+    let deleted = document.querySelector('button')
+    deleted.addEventListener('click', function () {
+    localStorage.removeItem('cartNumbers'.value, cartItems)
+    })
 }

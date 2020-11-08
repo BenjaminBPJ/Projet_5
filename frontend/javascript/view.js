@@ -95,16 +95,111 @@ function createForm(){
     let form = document.createElement('form')
     document.querySelector("main").appendChild(form)
     form.innerHTML =`<h5>Veuillez remplir ce formulaire et l'envoyer pour recevoir votre commande</h5>
-                     <label for="lastName">Nom</label>
-                     <input type="text" id="lastName" name="userLastName" required>
-                     <span id="aideNom"></span><br>
-                     <label for="firstName">Prénom</label>
-                     <input type="text" id="firstName" name="userFirstName" required><br>
-                     <label for="address">Adresse</label>
-                     <input type="text" id="address" name="userAddress" required><br>
+                     <form action="" method="POST">
+                     <label for="name">Nom</label>
+                     <input type="text" id="name" ></input><br>
+                     <small id="small-name"></small><br>
+                     <label for="firstname">Prénom</label>
+                     <input type="text" id="firstname" ></input><br>
+                     <small id="small-firstname"></small><br>
+                     <label for="adress">Adresse</label>
+                     <input type="text" id="adress" ></input><br>
+                     <small id="small-adress"></small><br>
                      <label for="city">Ville</label>
-                     <input type="text" id="city" name="userCity" required><br>
+                     <input type="text" id="city" ></input><br>
+                     <small id="small-city"></small><br>
                      <label for="email">E-mail</label>
-                     <input type="email" id="email" name="userEmail" required><br>
-                     <button type="submit" id="submitButton">Envoyer</button>`
+                     <input type="texte" id="email" ></input><br>
+                     <small id="small-email"></small><br>
+                     <button type ="submit" id="send">Envoyer</button>
+                     </form>`                
+
+// validation du formulaire
+form.name.addEventListener('change',function(){
+    nameValide(this)
+})
+form.firstname.addEventListener('change',function(){
+    firstNameValide(this)
+})
+form.adress.addEventListener('change',function(){
+    adressValide(this)
+})
+form.city.addEventListener('change',function(){
+    cityValide(this)
+})
+form.email.addEventListener('change',function(){
+    emailValide(this)
+})
+
+// validation du formulaire avec le bouton //
+form.addEventListener('submit',function(e){
+    e.preventDefault()
+    if (nameValide(form.name) && firstNameValide(form.firstname) && adressValide(form.adress) && cityValide(form.city) && emailValide(form.email)){
+        form.submit()
+    }
+})
+
+function emailValide(inputEmail){
+    let emailRegExp = new RegExp(`^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})$`,'g') 
+// teste de l'expression régulière dans l'input
+    let testEmail = emailRegExp.test(inputEmail.value)
+    let small = document.getElementById(`small-email`)
+    console.log(small)
+    if (testEmail){
+        small.innerHTML = `Adresse valide`
+        return true
+    }else {
+        small.innerHTML = `Adresse non valide`
+        return false
+    }
+}
+
+function nameValide(inputName){
+    let nameRegExp = new RegExp(`^[a-zA_Z]+$`,'g')
+    let testName = nameRegExp.test(inputName.value)
+    let small = document.getElementById(`small-name`)
+    if (testName){
+        small.innerHTML = `Prénom valide`
+        return true
+    }else {
+        small.innerHTML = `Merci d'écrire votre prénom en toutes lettres`
+        return false
+    }
+}
+function firstNameValide(inputFirstName){
+    let firstNameRegExp = new RegExp(`^[a-zA_Z]+$`,'g')
+    let testFirstName = firstNameRegExp.test(inputFirstName.value)
+    let small = document.getElementById(`small-firstname`)
+    if (testFirstName){
+        small.innerHTML = `Nom valide`
+        return true
+    }else {
+        small.innerHTML = `Merci d'écrire votre nom en toutes lettres`
+        return false
+    }
+}
+function cityValide(inputCity){
+    let cityRegExp = new RegExp(`^[a-zA_Z]+$`,'g')
+    let testCity = cityRegExp.test(inputCity.value)
+    let small = document.getElementById(`small-city`)
+    if (testCity){
+        small.innerHTML = `Ville valide`
+        return true
+    }else {
+        small.innerHTML = `Merci d'écrire votre ville en toutes lettres`
+        return false
+    }
+}
+function adressValide(inputAdress){
+    let adressRegExp = new RegExp(`^[a-zA_Z0-9-]+`,'g')
+    let testAdress = adressRegExp.test(inputAdress.value)
+    let small = document.getElementById(`small-adress`)
+    if (testAdress){
+        small.innerHTML = `Adresse valide`
+        return true
+    }else {
+        small.innerHTML = `Merci d'écrire une adresse correcte`
+        return false
+    }
+}
 }
