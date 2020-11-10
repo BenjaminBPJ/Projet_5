@@ -50,13 +50,17 @@ function totalCost(total){
     }
 }
 
-function deleteItem(value){
-    let productNumbers = localStorage.getItem('cartNumbers')
-    let cartItems = {
-        [productNumbers] : value
-        }
-    let deleted = document.querySelector('button')
-    deleted.addEventListener('click', function () {
-    localStorage.removeItem('cartNumbers'.value, cartItems)
+/*function deleteItem(){
+    let cartItems = localStorage.getItem('productsInCart')
+    cartItems = JSON.parse(cartItems)
+    let deleted = document.getElementsByClassName('remove-button')
+    console.log(deleted)
+    console.log(cartItems)
+    
+    deleted.addEventListener('click', function(){
+        for (let id in cartItems){
+        localStorage.removeItem(id)
+        console.log(id)
+    }
     })
-}
+}*/

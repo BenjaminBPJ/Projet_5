@@ -4,6 +4,7 @@ function productPage(){
             createCardProductDetail(pageProduit) // création de la carte produit detail
             createColorChoice(pageProduit)  // création menu deroulant couleur    
             clickForCart(pageProduit) // envoie un produit au clique bouton dans le local storage (panier)
+           
     })
     .catch((err) => console.log(`pas de serveur:${err}`))
 }

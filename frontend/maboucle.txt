@@ -1,0 +1,22 @@
+function letter(inputLetter){
+    let inputIds = ["name", "firstname","city"]
+    let inputTexts = ["nom", "prénom","ville",]
+
+
+    let inputRegExp = new RegExp(`^[a-zA_Z]+$`,'g') 
+    let input = inputRegExp.test(inputLetter.value)
+    let small = document.getElementsByClassName(`small-letter`)
+    console.log(small)
+
+    for (let i=0; i < inputIds.length; i = i + 1){
+        if  (inputIds[i] === "name" || 
+        inputIds[i] === "firstname" || 
+        inputIds[i] === "city") {
+             if (input){
+                small.innerHTML = inputTexts[i] + ` valide`
+            }else {
+                small.innerHTML = `Merci d'écrire votre `+ inputTexts[i] +` en toutes lettres`
+            }
+    }
+}
+}

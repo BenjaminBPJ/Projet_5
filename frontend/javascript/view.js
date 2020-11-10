@@ -76,7 +76,6 @@ if (cartItems == null){
                           <td><button class="remove-button">Supprimer</button></td>`
     tfoot.innerHTML =`<td colspan="4">Total de la commande : ${cartCost} €</td>`
     })
-    openForm()
 }
 }
 
@@ -86,7 +85,7 @@ function openForm(){
     document.querySelector('main').appendChild(butttonForm)
     butttonForm.innerHTML = `finalisez votre commande`
     butttonForm.addEventListener('click', function (){
-        createForm()
+        createForm()        
     })
 }
 
@@ -112,8 +111,8 @@ function createForm(){
                      <input type="texte" id="email" ></input><br>
                      <small id="small-email"></small><br>
                      <button type ="submit" id="send">Envoyer</button>
-                     </form>`                
-
+                     </form>`  
+             
 // validation du formulaire
 form.name.addEventListener('change',function(){
     nameValide(this)
@@ -133,11 +132,12 @@ form.email.addEventListener('change',function(){
 
 // validation du formulaire avec le bouton //
 form.addEventListener('submit',function(e){
-    e.preventDefault()
     if (nameValide(form.name) && firstNameValide(form.firstname) && adressValide(form.adress) && cityValide(form.city) && emailValide(form.email)){
-        form.submit()
+        e.preventDefault()
+        sendApi()   
     }
-})
+    })
+
 
 function emailValide(inputEmail){
     let emailRegExp = new RegExp(`^[_a-z0-9-]+(.[_a-z0-9-]+)*@[a-z0-9-]+(.[a-z0-9-]+)*(.[a-z]{2,3})$`,'g') 
@@ -203,3 +203,77 @@ function adressValide(inputAdress){
     }
 }
 }
+
+
+function sendApi(){
+    // je créer un tableau dans lequel je vais push mes produits
+    let products = []
+    // j'envoie les produit dans mon tableau
+    let cartItems = localStorage.getItem('productsInCart')
+    cartItems = JSON.parse(cartItems)
+    for (let name in cartItems){
+        products.push(name)
+    }
+    console.log(products)
+// recuperations des input que je met dans un objet contact
+let name = document.getElementById("name").value
+let firstName = document.getElementById("firstname").value
+let adress = document.getElementById("adress").value
+let city = document.getElementById("city").value
+let email = document.getElementById("email").value
+
+let contact ={
+    name: name,
+    firstName: firstName,
+    adress: adress,
+    city: city,
+    email: email,
+}
+
+let object = {
+    contact,
+    products,
+}
+
+console.log(object)
+
+let postApiUrl = `http://localhost:3000/api/teddies/order`
+let postDataApi = JSON.stringify(object)
+
+let postDataCart = async function(){
+    try{
+        let response = await fetch(postApiUrl,{
+            method : "POST",
+            headers : {
+                "content-type": "application/json"
+            },
+            body : postDataApi
+        })
+        console.log(response)
+// récupération des données de l'api
+        if (response.ok){
+            let data = await response.json()
+console.log("infos recup :")
+console.log(data)
+
+let idPostApi = data["orderId"]
+console.log(idPostApi)
+
+let productsPostApi = products
+console.log(productsPostApi)
+
+// renvoi sur la page de confirmation
+window.location =`confirmation.html?id=${data["orderId"]}&price=${productsPostApi}`
+        }else{
+            console.error("serveur hs :", response.status)
+        }
+    }catch(e){
+        console.log(e)
+    }
+    postDataCart()
+}
+}
+
+
+
+
