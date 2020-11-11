@@ -9,7 +9,7 @@ function createCardProduct(value) {
                         <img src= ${value.imageUrl} class="teddy"/>
                         <p>${value.description}</p>
                         <p><strong>Couleurs : </strong>${value.colors}</p>
-                        <p><strong>Prix : </strong>${DecimNumber(value)} €</p>
+                        <p><strong>Prix : </strong>${decimNumber(value)} €</p>
                         <button>Cliquez pour plus d'infos</button>`
 }
 
@@ -24,7 +24,7 @@ function createCardProductDetail(value){
                          <p>${value.description}<p>
                          <p><strong>Couleur : </strong></p>
                          <select></select>
-                         <p><strong>Prix : </strong>${DecimNumber(value)} €</p>
+                         <p><strong>Prix : </strong>${decimNumber(value)} €</p>
                          <button class="add-basket">Mettre dans mon panier</button>`
 }
 
@@ -48,7 +48,6 @@ function createColorChoice(value){
 function createCart(){
     let cartItems = localStorage.getItem('productsInCart')
     cartItems = JSON.parse(cartItems)
-    console.log(cartItems)
     let cart = document.createElement('p')
     document.querySelector('main').appendChild(cart)
 // création du tableau
@@ -73,7 +72,7 @@ if (cartItems == null){
     Object.values(cartItems).map(items =>{
     row.innerHTML += `<td class="img-panier"><img class="teddy-panier" src="${items.imageUrl}"></td>
                           <td class="produit-name-panier">${items.name}</td>
-                          <td class="prix-produit-panier">${DecimNumber(items)} €</td>
+                          <td class="prix-produit-panier">${decimNumber(items)} €</td>
                           <td><button class="remove-button">Supprimer</button></td>`
     tfoot.innerHTML =`<td colspan="4">Total de la commande : ${cartCost} €</td>`
     })
@@ -212,8 +211,8 @@ function sendApi(){
     // j'envoie les produit dans mon tableau
     let cartItems = localStorage.getItem('productsInCart')
     cartItems = JSON.parse(cartItems)
-    for (let name in cartItems){
-        products.push(name)
+    for (let id in cartItems){
+        products.push(id)
     }
     console.log(products)
 // recuperations des input que je met dans un objet contact
@@ -276,8 +275,8 @@ window.location =`confirmation.html?id=${data["orderId"]}&price=${productsPostAp
 }
 
 // fonction pour mettre nos nombres en décimal
-function DecimNumber(value){
-    let price = value.price / 100
+function decimNumber(data){
+    let price = data.price / 100
     let endPrice = price.toLocaleString("fr", {minimumFractionDigits: 2, maximumFractionDigits: 2})
     return endPrice
 }
