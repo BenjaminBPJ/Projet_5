@@ -9,7 +9,7 @@ function createCardProduct(value) {
                         <img src= ${value.imageUrl} class="teddy"/>
                         <p>${value.description}</p>
                         <p><strong>Couleurs : </strong>${value.colors}</p>
-                        <p><strong>Prix : </strong>${value.price /100} €</p>
+                        <p><strong>Prix : </strong>${DecimNumber(value)} €</p>
                         <button>Cliquez pour plus d'infos</button>`
 }
 
@@ -24,7 +24,7 @@ function createCardProductDetail(value){
                          <p>${value.description}<p>
                          <p><strong>Couleur : </strong></p>
                          <select></select>
-                         <p><strong>Prix : </strong>${value.price / 100} €</p>
+                         <p><strong>Prix : </strong>${DecimNumber(value)} €</p>
                          <button class="add-basket">Mettre dans mon panier</button>`
 }
 
@@ -60,6 +60,7 @@ function createCart(){
     document.querySelector('table').appendChild(tfoot)
     let cartCost = localStorage.getItem('totalCost')
 
+
 if (cartItems == null){
     cart.innerHTML = `<p>Votre panier est vide<br>
                       Veuillez choisir un Ourson<p>`
@@ -72,7 +73,7 @@ if (cartItems == null){
     Object.values(cartItems).map(items =>{
     row.innerHTML += `<td class="img-panier"><img class="teddy-panier" src="${items.imageUrl}"></td>
                           <td class="produit-name-panier">${items.name}</td>
-                          <td class="prix-produit-panier">${items.price / 100} €</td>
+                          <td class="prix-produit-panier">${DecimNumber(items)} €</td>
                           <td><button class="remove-button">Supprimer</button></td>`
     tfoot.innerHTML =`<td colspan="4">Total de la commande : ${cartCost} €</td>`
     })
@@ -274,6 +275,17 @@ window.location =`confirmation.html?id=${data["orderId"]}&price=${productsPostAp
 }
 }
 
+// fonction pour mettre nos nombres en décimal
+function DecimNumber(value){
+    let price = value.price / 100
+    let endPrice = price.toLocaleString("fr", {minimumFractionDigits: 2, maximumFractionDigits: 2})
+    return endPrice
+}
 
+function serveurDown(){
+    let article = document.createElement(`article`) // création de l'article principal
+    document.querySelector("main").appendChild(article)
+    article.innerHTML = `Serveur momentanément indisponible, veuillez nous excuser`
+}
 
 

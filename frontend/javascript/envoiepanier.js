@@ -44,9 +44,9 @@ function totalCost(total){
     let cartCost = localStorage.getItem('totalCost')
     if (cartCost != null){
         cartCost = JSON.parse(cartCost)
-        localStorage.setItem('totalCost', cartCost + total.price / 100)
+        localStorage.setItem('totalCost', cartCost + DecimNumber(total))
     }else{
-        localStorage.setItem('totalCost', total.price / 100)
+        localStorage.setItem('totalCost', DecimNumber(total))
     }
 }
 

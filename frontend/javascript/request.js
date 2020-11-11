@@ -8,5 +8,14 @@ async function request(url){
 let getId = window.location.search  // avoir l'Id de connection
 let urlParam = getId.replace("?id=", "") // connecte l'ID à la page
 
-
-
+async function send(url, data){
+    let response = await fetch(url, {
+        method : "POST",
+        headers : {
+            "Content-Type" : "application/json"
+        },
+        body : JSON.stringify(data)
+    })
+    let res = await response.json()
+    return res
+}
