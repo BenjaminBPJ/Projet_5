@@ -32,27 +32,47 @@ function addItems(data){
 }
 
 // cout total du panier
-function totalCost(data){
-    let cartCost = localStorage.getItem('totalCost')  
-    if (cartCost == null){
-        localStorage.setItem('totalCost', decimNumber(data))
-    }else{
-        localStorage.setItem('totalCost', (data.price / 100 + JSON.parse(cartCost)))
+    function totalCost(data){
+        let items = {
+            id : data._id,
+            name : data.name,
+            price : data.price,
+            image : data.imageUrl,
+        }    
+        let cartCost = localStorage.getItem('totalCost')  
+        let itemPrice = items.price
+        if (cartCost != null){          
+            localStorage.setItem('totalCost', cartCost + itemPrice)  
+                   
+        }else{
+            localStorage.setItem('totalCost', itemPrice)
+        }
+        cartCost = parseFloat(cartCost)
+        decimNumber(cartCost) 
+        
+        console.log(typeof cartCost)
     }
-    console.log(cartCost)
-}
 
-/*function deleteItem(){
+
+function removeItem() { // fonction servant à supprimer un élément du tableau
+    let removeItemButton = document.getElementsByClassName('remove-button')
     let cartItems = localStorage.getItem('productsInCart')
     cartItems = JSON.parse(cartItems)
-    let deleted = document.getElementsByClassName('remove-button')
-    console.log(deleted)
-    console.log(cartItems)
-    
-    deleted.addEventListener('click', function(){
-        for (let id in cartItems){
-        localStorage.removeItem(id)
-        console.log(id)
+    for (i = 0; i < removeItemButton.length; i++) {  // on selectionne là ou on va appliquer notre supression
+        let button = removeItemButton[i]
+        button.addEventListener('click', function (event) {
+            let deleteItem = event.target
+            deleteItem.parentElement.parentElement.remove() // supression de la page
+            deleteClick(event) // supression du localStorage
+            totalCost(event)
+        })
     }
-    })
-}*/
+}
+
+function deleteClick(i){
+    let cartItems = localStorage.getItem('productsInCart')
+    cartItems = JSON.parse(cartItems)
+    cartItems.splice(i, 1) //suppression de l'element i du tableau (= le bouton sur lequel on va avoir le addEventListener) 
+    localStorage.clear() //on vide le storage avant de le mettre à jour
+    localStorage.setItem("productsInCart", JSON.stringify(cartItems)) //maj du panier sans l'élément i
+}

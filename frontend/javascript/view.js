@@ -41,7 +41,8 @@ function createColorChoice(value){
         document.querySelector('main article select').appendChild(option)
         option.setAttribute("value", value.colors[i])   // permet d'avoir les choix multiples pour chaque couleurs grâce à l'attribut donné
 
-        option.innerHTML = `${value.colors[i]}`}
+        option.innerHTML = `${value.colors[i]}`
+    }
 }
 
 // création physique du panier sur la page panier
@@ -59,7 +60,6 @@ function createCart(){
     document.querySelector('table').appendChild(tfoot)
     let cartCost = localStorage.getItem('totalCost')
 
-
 if (cartItems == null){
     cart.innerHTML = `<p>Votre panier est vide<br>
                       Veuillez choisir un Ourson<p>`
@@ -69,13 +69,15 @@ if (cartItems == null){
                             <th class="produit-name-panier">Ourson</th> 
                             <th class="prix-produit-panier">Prix</th>
                             </tr>`
-    Object.values(cartItems).map(items =>{
-    row.innerHTML += `<td class="img-panier"><img class="teddy-panier" src="${items.imageUrl}"></td>
-                          <td class="produit-name-panier">${items.name}</td>
-                          <td class="prix-produit-panier">${decimNumber(items)} €</td>
-                          <td><button class="remove-button">Supprimer</button></td>`
+    for (let i in cartItems){
+    row.innerHTML += `<td class="img-panier"><img class="teddy-panier" src="${cartItems[i].image}"></td>
+                          <td class="produit-name-panier">${cartItems[i].name}</td>
+                          <td class="prix-produit-panier">${decimNumber(cartItems[i])} €</td>
+                          <td><button class="remove-button" value="${JSON.stringify(cartItems[i])}">Supprimer</button></td>`
+
     tfoot.innerHTML =`<td colspan="4">Total de la commande : ${cartCost} €</td>`
-    })
+    }
+
 }
 }
 

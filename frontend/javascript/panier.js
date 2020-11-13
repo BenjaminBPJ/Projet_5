@@ -3,6 +3,7 @@ function cartPage(){
     data.then(pagePanier =>{ 
             createCart(pagePanier)    
             openForm(pagePanier)
+            removeItem(pagePanier)
     })
     //.catch((err) => console.log(`pas de serveur:${err}`))
 }
