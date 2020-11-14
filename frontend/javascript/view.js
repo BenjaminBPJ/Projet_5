@@ -55,31 +55,38 @@ function createCart(){
     let tableTitle = document.createElement('thead')
     document.querySelector('table').appendChild(tableTitle)
     let row = document.createElement('tbody')
+    row.setAttribute('id', 'affichage-panier') 
     document.querySelector('table').appendChild(row)
     let tfoot = document.createElement('tfoot')
     document.querySelector('table').appendChild(tfoot)
-    let cartCost = localStorage.getItem('totalCost')
+    tfoot.setAttribute('id', 'prix-total')
 
-if (cartItems == null){
-    cart.innerHTML = `<p>Votre panier est vide<br>
-                      Veuillez choisir un Ourson<p>`
-}else{
-    tableTitle.innerHTML = `<tr>
-                            <th class="img-panier">Mes achats</th>
-                            <th class="produit-name-panier">Ourson</th> 
-                            <th class="prix-produit-panier">Prix</th>
-                            </tr>`
-    for (let i in cartItems){
-    row.innerHTML += `<td class="img-panier"><img class="teddy-panier" src="${cartItems[i].image}"></td>
-                          <td class="produit-name-panier">${cartItems[i].name}</td>
-                          <td class="prix-produit-panier">${decimNumber(cartItems[i])} €</td>
-                          <td><button class="remove-button" value="${JSON.stringify(cartItems[i])}">Supprimer</button></td>`
+    if (cartItems == null){
+        cart.innerHTML = `<p>Votre panier est vide<br>
+                        Veuillez choisir un Ourson<p>`
+    }else{
+        tableTitle.innerHTML = `<tr>
+                                <th class="img-panier">Mes achats</th>
+                                <th class="produit-name-panier">Ourson</th> 
+                                <th class="prix-produit-panier">Prix</th>
+                                </tr>`
+        for (let i in cartItems){
+        row.innerHTML += `<td class="img-panier"><img class="teddy-panier" src="${cartItems[i].image}"></td>
+                              <td class="produit-name-panier">${cartItems[i].name}</td>
+                              <td class="prix-produit-panier">${decimNumber(cartItems[i])} €</td>
+                              <td><button class="remove-button" value="${JSON.stringify(cartItems[i])}">Supprimer</button></td>`
+    
 
-    tfoot.innerHTML =`<td colspan="4">Total de la commande : ${cartCost} €</td>`
+        let sumVal = 0
+        for (i = 0 ; i < row.rows.length ; i ++){
+            sumVal = sumVal + parseInt(row.rows[i].cells[2].innerHTML)
+        }
+        console.log(sumVal)
+
+        tfoot.innerHTML =`<td colspan="4">Total de la commande : ${sumVal.toLocaleString("fr", {minimumFractionDigits: 2, maximumFractionDigits: 2})} €</td>`
+        }
     }
-
-}
-}
+    }
 
 // bouton formulaire
 function openForm(){
