@@ -88,20 +88,11 @@ function createCart(){
     }
     }
 
-// bouton formulaire
-function openForm(){
-    let butttonForm = document.createElement('button')
-    document.querySelector('main').appendChild(butttonForm)
-    butttonForm.innerHTML = `finalisez votre commande`
-    butttonForm.addEventListener('click', function (){
-        createForm()        
-    })
-}
-
 //création du formulaire
 function createForm(){
     let form = document.createElement('form')
     document.querySelector("main").appendChild(form)
+    form.classList.add('hidden')
     form.innerHTML =`<h5>Veuillez remplir ce formulaire et l'envoyer pour recevoir votre commande</h5>
                      <form action="" method="POST">
                      <label for="name">Nom</label>
@@ -120,8 +111,18 @@ function createForm(){
                      <input type="texte" id="email" ></input><br>
                      <small id="small-email"></small><br>
                      <button type ="submit" id="send">Envoyer</button>
-                     </form>`  
-             
+                     </form>` 
+
+
+    let butttonForm = document.createElement('button')
+    document.querySelector('main').appendChild(butttonForm)
+    butttonForm.innerHTML = `finalisez votre commande` 
+    
+    butttonForm.addEventListener('click', function (){
+        form.classList.remove('hidden')
+        butttonForm.classList.add('hidden')       
+    })   
+              
 // validation du formulaire
 form.name.addEventListener('change',function(){
     nameValide(this)

@@ -133,6 +133,10 @@ td{
 .prix-produit-panier{
     width: 20%;
 }
+/* disparition formulaire */
+.hidden{
+    display: none;
+}
 @media screen and (max-width:768px){
     body{
         display: block;
