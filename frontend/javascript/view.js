@@ -165,7 +165,7 @@ function emailValide(inputEmail){
 }
 
 function nameValide(inputName){
-    let nameRegExp = new RegExp(`^[a-zA_Z]+$`,'g')
+    let nameRegExp = new RegExp(`^[a-zàâéèëêïîôùüçœ\'’A_Z -]{1,60}$`,'g')
     let testName = nameRegExp.test(inputName.value)
     let small = document.getElementById(`small-name`)
     if (testName){
@@ -177,7 +177,7 @@ function nameValide(inputName){
     }
 }
 function firstNameValide(inputFirstName){
-    let firstNameRegExp = new RegExp(`^[a-zA_Z]+$`,'g')
+    let firstNameRegExp = new RegExp(`^[a-zàâéèëêïîôùüçœ\'’A_Z -]{1,60}$`,'g')
     let testFirstName = firstNameRegExp.test(inputFirstName.value)
     let small = document.getElementById(`small-firstname`)
     if (testFirstName){
@@ -189,7 +189,7 @@ function firstNameValide(inputFirstName){
     }
 }
 function cityValide(inputCity){
-    let cityRegExp = new RegExp(`^[a-zA_Z]+$`,'g')
+    let cityRegExp = new RegExp(`^[a-zàâéèëêïîôùüçœ\'’A_Z -]{1,60}$`,'g')
     let testCity = cityRegExp.test(inputCity.value)
     let small = document.getElementById(`small-city`)
     if (testCity){
@@ -201,7 +201,7 @@ function cityValide(inputCity){
     }
 }
 function adressValide(inputAdress){
-    let adressRegExp = new RegExp(`^[a-zA_Z0-9-]+`,'g')
+    let adressRegExp = new RegExp(`^[a-zàâéèëêïîôùüçœ\'’A_Z0-9-]+`,'g')
     let testAdress = adressRegExp.test(inputAdress.value)
     let small = document.getElementById(`small-adress`)
     if (testAdress){
