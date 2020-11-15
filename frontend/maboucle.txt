@@ -21,21 +21,73 @@ function letter(inputLetter){
 }
 }
 
-    function totalCost(data){
-        let items = {
-            id : data._id,
-            name : data.name,
-            price : data.price,
-            image : data.imageUrl,
-        }    
-        let cartCost = localStorage.getItem('totalCost')
-        cartCost = JSON.parse(cartCost)
-        cartCost = parseFloat(localStorage.getItem('totalCost')) 
-        let itemPrice = items.price
-        if (cartCost != null){                   
-            localStorage.setItem('totalCost', cartCost + itemPrice)                    
-        }else{
-            localStorage.setItem('totalCost', itemPrice)
-        }       
-        console.log(typeof cartCost)
+// envoie des données collectées à l'api
+function sendApi(){
+    // je créer un tableau dans lequel je vais push mes produits
+    let products = []
+    // j'envoie les produit dans mon tableau
+    let cartItems = localStorage.getItem('productsInCart')
+    cartItems = JSON.parse(cartItems)
+    for (let i =0; i < cartItems.length; i++ ){
+        products.push(cartItems[i].id)
     }
+    console.log(products)
+// recuperations des input que je met dans un objet contact
+    let name = document.getElementById("name").value
+    let firstName = document.getElementById("firstname").value
+    let adress = document.getElementById("adress").value
+    let city = document.getElementById("city").value
+    let email = document.getElementById("email").value
+
+    let contact ={
+        firstName: name,
+        lastName: firstName,
+        adress: adress,
+        city: city,
+        email: email,
+    }
+
+    let object = {
+        contact,
+        products,
+    }
+
+    console.log(object)
+
+
+    let postApiUrl = `http://localhost:3000/api/teddies/order`
+    let postDataApi = JSON.stringify(object)
+
+    let postDataCart = async function(){
+        try{
+            let response = await fetch(postApiUrl,{
+                method : "POST",
+                headers : {
+                    "content-type": "application/json"
+                },
+                body : postDataApi
+            })
+        console.log(response)
+// récupération des données de l'api
+        if (response.ok){
+            let data = await response.json()
+    console.log("infos recup :")
+    console.log(data)
+
+    let idPostApi = data["orderId"]
+    console.log(idPostApi)
+
+    let productsPostApi = products
+    console.log(productsPostApi)
+
+// renvoi sur la page de confirmation
+    window.location =`confirmation.html?id=${data["orderId"]}&price=${productsPostApi}`
+        }else{
+            console.error("serveur hs :", response.status)
+        }
+        }catch(e){
+            console.log(e)
+        }
+    postDataCart()
+}
+}

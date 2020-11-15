@@ -86,7 +86,7 @@ function createCart(){
         tfoot.innerHTML =`<td colspan="4">Total de la commande : ${sumVal.toLocaleString("fr", {minimumFractionDigits: 2, maximumFractionDigits: 2})} €</td>`
         }
     }
-    }
+}
 
 //création du formulaire
 function createForm(){
