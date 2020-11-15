@@ -20,3 +20,22 @@ function letter(inputLetter){
     }
 }
 }
+
+    function totalCost(data){
+        let items = {
+            id : data._id,
+            name : data.name,
+            price : data.price,
+            image : data.imageUrl,
+        }    
+        let cartCost = localStorage.getItem('totalCost')
+        cartCost = JSON.parse(cartCost)
+        cartCost = parseFloat(localStorage.getItem('totalCost')) 
+        let itemPrice = items.price
+        if (cartCost != null){                   
+            localStorage.setItem('totalCost', cartCost + itemPrice)                    
+        }else{
+            localStorage.setItem('totalCost', itemPrice)
+        }       
+        console.log(typeof cartCost)
+    }
