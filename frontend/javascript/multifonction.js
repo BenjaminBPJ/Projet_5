@@ -210,7 +210,8 @@ function postOrder(){
         let firstName = contact.firstName
         let lastName = contact.lastName
 
-        //window.location =`commande.html?id=${idPostApi}&names=${firstName + lastName}&products=${productPostApi}`
+        window.location =`commande.html?id=${idPostApi}&firstName=${firstName}&lastName=${lastName}&products=${productPostApi}`
+        
     })
     //.catch((err) => console.log(`pas de serveur:${err}`))
     

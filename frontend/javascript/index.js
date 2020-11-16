@@ -8,7 +8,7 @@ function listeProduct(){
     .catch((err) =>{ 
         serveurDown()
         console.log(`pas de serveur:${err}`)
-})
+    })
 }
 
 listeProduct()

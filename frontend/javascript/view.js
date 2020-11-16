@@ -138,4 +138,18 @@ function serveurDown(){
     article.innerHTML = `Serveur momentanément indisponible, veuillez nous excuser`
 }
 
+function createGrateful(){
+    let searchParam = new URLSearchParams(window.location.search)
+    let firstName = searchParam.get('firstName')
+    let lastName = searchParam.get('lastName')
+    let idPostApi = searchParam.get('id')
 
+    let article = document.createElement(`article`) 
+    document.querySelector("main").appendChild(article)
+
+    article.innerHTML = `Bonjour, ${firstName + lastName},<br>
+                        Nous vous remercions pour votre commande numéro ${idPostApi}.<br>
+                        Vos produits seront livrés dans un délais de 3 jours.<br>
+                        Amicalement`
+
+}

@@ -5,7 +5,10 @@ function cartPage(){
             makingForm(pagePanier)
             removeItem(pagePanier)
     })
-    //.catch((err) => console.log(`pas de serveur:${err}`))
+    .catch((err) =>{ 
+        serveurDown()
+        console.log(`pas de serveur:${err}`)
+    })
 }
 
 cartPage()
