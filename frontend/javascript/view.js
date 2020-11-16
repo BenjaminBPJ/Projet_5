@@ -147,9 +147,8 @@ function createGrateful(){
     let article = document.createElement(`article`) 
     document.querySelector("main").appendChild(article)
 
-    article.innerHTML = `Bonjour, ${firstName + lastName},<br>
+    article.innerHTML = `Bonjour, <span class="color">${firstName +' '+ lastName}</span>,<br>
                         Nous vous remercions pour votre commande numéro ${idPostApi}.<br>
                         Vos produits seront livrés dans un délais de 3 jours.<br>
                         Amicalement`
-
 }

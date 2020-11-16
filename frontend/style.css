@@ -137,6 +137,9 @@ td{
 .hidden{
     display: none;
 }
+.color{
+    color:  #dc7d15;
+}
 @media screen and (max-width:768px){
     body{
         display: block;
