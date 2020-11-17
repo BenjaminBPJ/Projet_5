@@ -91,3 +91,11 @@ function sendApi(){
     postDataCart()
 }
 }
+
+let inputId = [name, firstname, city]
+let inputText = [nom, prénom, ville]
+let regex = new ...
+let small = doc...
+for (i = 0; i < inputId.length ; i ++){
+testInput = regex.test(input[i].value)
+
