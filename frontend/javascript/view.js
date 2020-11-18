@@ -61,7 +61,7 @@ function createCart(){
     document.querySelector('table').appendChild(tfoot)
     tfoot.setAttribute('id', 'prix-total')
 
-    if (cartItems == null){
+    if (cartItems.length == 0){
         cart.innerHTML = `<p>Votre panier est vide<br>
                         Veuillez choisir un Ourson<p>`
     }else{
@@ -74,7 +74,7 @@ function createCart(){
         row.innerHTML += `<td class="img-panier"><img class="teddy-panier" src="${cartItems[i].image}"></td>
                               <td class="produit-name-panier">${cartItems[i].name}</td>
                               <td class="prix-produit-panier">${decimNumber(cartItems[i])} €</td>
-                              <td><button class="remove-button" value="${JSON.stringify(cartItems[i])}">Supprimer</button></td>`
+                              <td><button class="remove-button">Supprimer</button></td>`
     
 
         let sumVal = 0
@@ -83,13 +83,18 @@ function createCart(){
         }
         console.log(sumVal)
 
-        tfoot.innerHTML =`<td colspan="4">Total de la commande : ${sumVal.toLocaleString("fr", {minimumFractionDigits: 2, maximumFractionDigits: 2})} €</td>`
+        tfoot.innerHTML =`<td colspan="4">Total de la commande : ${sumVal.toLocaleString("fr", {minimumFractionDigits: 2, maximumFractionDigits: 2})} €<br>
+                          <button id="clean-cart">Vider le panier</button></td>`
+                          cleanCart()
         }
-    }
+    }        
 }
+
 
 //création du formulaire
 function createForm(){
+    let cartItems = localStorage.getItem('productsInCart')
+    cartItems = JSON.parse(cartItems)
     let form = document.createElement('form')
     document.querySelector("main").appendChild(form)
     form.setAttribute("id", "formulaire")
@@ -111,14 +116,18 @@ function createForm(){
                      <label for="email">E-mail</label>
                      <input type="texte" id="email" ></input><br>
                      <small id="small-email"></small><br>
-                     <button type ="submit" id="send">Envoyer</button>
+                     <button type ="submit" id="send">Cliquez ici, pour passer votre commande</button>
                      </form>` 
 
 
     let butttonForm = document.createElement('button')
     document.querySelector('main').appendChild(butttonForm)
-    butttonForm.innerHTML = `finalisez votre commande` 
-    
+    if (cartItems.length < 1){
+        butttonForm.classList.add('hidden')
+    }else{
+        butttonForm.innerHTML = `finalisez votre commande` 
+    }
+        
     butttonForm.addEventListener('click', function (){
         form.classList.remove('hidden')
         butttonForm.classList.add('hidden')       
@@ -130,12 +139,6 @@ function decimNumber(data){
     let price = data.price / 100
     let endPrice = price.toLocaleString("fr", {minimumFractionDigits: 2, maximumFractionDigits: 2})
     return endPrice
-}
-
-function serveurDown(){
-    let article = document.createElement(`article`) // création de l'article principal
-    document.querySelector("main").appendChild(article)
-    article.innerHTML = `Serveur momentanément indisponible, veuillez nous excuser`
 }
 
 function createGrateful(){
@@ -151,4 +154,10 @@ function createGrateful(){
                         Nous vous remercions pour votre commande numéro ${idPostApi}.<br>
                         Vos produits seront livrés dans un délais de 3 jours.<br>
                         Amicalement`
+}
+
+function serverDown(){
+    let article = document.createElement(`article`) // création de l'article principal
+    document.querySelector("main").appendChild(article)
+    article.innerHTML = `Serveur momentanément indisponible, veuillez nous excuser`
 }

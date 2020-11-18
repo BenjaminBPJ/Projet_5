@@ -6,7 +6,7 @@ function listeProduct(){
          })
     })
     .catch((err) =>{ 
-        serveurDown()
+        serverDown()
         console.log(`pas de serveur:${err}`)
     })
 }
