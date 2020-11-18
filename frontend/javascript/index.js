@@ -1,14 +1,14 @@
-function listeProduct(){
+function listeProduct() {
     let data = request(`http://localhost:3000/api/teddies`)
-    data.then(products =>{
+    data.then(products => {
         products.forEach(product => { // création des cartes produits
-            createCardProduct(product) 
-         })
+            createCardProduct(product)
+        })
     })
-    .catch((err) =>{ 
-        serverDown()
-        console.log(`pas de serveur:${err}`)
-    })
+        .catch((err) => {
+            serverDown()
+            console.log(`pas de serveur:${err}`)
+        })
 }
 
 listeProduct()

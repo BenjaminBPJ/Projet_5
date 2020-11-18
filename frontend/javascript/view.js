@@ -14,7 +14,7 @@ function createCardProduct(value) {
 }
 
 // création de carte dynamique page produit //
-function createCardProductDetail(value){
+function createCardProductDetail(value) {
     let article = document.createElement(`article`) // création de l'article principal
     document.querySelector("main").appendChild(article)
     article.classList.add("card-produit")
@@ -29,9 +29,9 @@ function createCardProductDetail(value){
 }
 
 // création du déroulant multichoix des couleurs //
-function createColorChoice(value){
-    let option = document.createElement('option') 
-    document.querySelector('select').appendChild(option)           
+function createColorChoice(value) {
+    let option = document.createElement('option')
+    document.querySelector('select').appendChild(option)
     let optionDefault = document.createElement('option') // création de l'intitulé, pour dire à l'utilisateur de choisir sa couleur
     document.querySelector('option').appendChild(optionDefault)
     optionDefault.innerHTML = "Choisissez votre couleur"
@@ -46,60 +46,60 @@ function createColorChoice(value){
 }
 
 // création physique du panier sur la page panier
-function createCart(){
+function createCart() {
     let cartItems = localStorage.getItem('productsInCart')
     cartItems = JSON.parse(cartItems)
     let cart = document.createElement('p')
     document.querySelector('main').appendChild(cart)
-// création du tableau
+    // création du tableau
     let tableTitle = document.createElement('thead')
     document.querySelector('table').appendChild(tableTitle)
     let row = document.createElement('tbody')
-    row.setAttribute('id', 'affichage-panier') 
+    row.setAttribute('id', 'affichage-panier')
     document.querySelector('table').appendChild(row)
     let tfoot = document.createElement('tfoot')
     document.querySelector('table').appendChild(tfoot)
     tfoot.setAttribute('id', 'prix-total')
 
-    if (cartItems.length == 0){
+    if (cartItems.length == 0) {
         cart.innerHTML = `<p>Votre panier est vide<br>
                         Veuillez choisir un Ourson<p>`
-    }else{
+    } else {
         tableTitle.innerHTML = `<tr>
                                 <th class="img-panier">Mes achats</th>
                                 <th class="produit-name-panier">Ourson</th> 
                                 <th class="prix-produit-panier">Prix</th>
                                 </tr>`
-        for (let i in cartItems){
-        row.innerHTML += `<td class="img-panier"><img class="teddy-panier" src="${cartItems[i].image}"></td>
+        for (let i in cartItems) {
+            row.innerHTML += `<td class="img-panier"><img class="teddy-panier" src="${cartItems[i].image}"></td>
                               <td class="produit-name-panier">${cartItems[i].name}</td>
                               <td class="prix-produit-panier">${decimNumber(cartItems[i])} €</td>
                               <td><button class="remove-button">Supprimer</button></td>`
-    
 
-        let sumVal = 0
-        for (i = 0 ; i < row.rows.length ; i ++){
-            sumVal = sumVal + parseInt(row.rows[i].cells[2].innerHTML)
-        }
-        console.log(sumVal)
 
-        tfoot.innerHTML =`<td colspan="4">Total de la commande : ${sumVal.toLocaleString("fr", {minimumFractionDigits: 2, maximumFractionDigits: 2})} €<br>
+            let sumVal = 0
+            for (i = 0; i < row.rows.length; i++) {
+                sumVal = sumVal + parseInt(row.rows[i].cells[2].innerHTML)
+            }
+            console.log(sumVal)
+
+            tfoot.innerHTML = `<td colspan="4">Total de la commande : ${sumVal.toLocaleString("fr", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €<br>
                           <button id="clean-cart">Vider le panier</button></td>`
-                          cleanCart()
+            cleanCart()
         }
-    }        
+    }
 }
 
 
 //création du formulaire
-function createForm(){
+function createForm() {
     let cartItems = localStorage.getItem('productsInCart')
     cartItems = JSON.parse(cartItems)
     let form = document.createElement('form')
     document.querySelector("main").appendChild(form)
     form.setAttribute("id", "formulaire")
     form.classList.add('hidden')
-    form.innerHTML =`<h5>Veuillez remplir ce formulaire et l'envoyer pour recevoir votre commande</h5>
+    form.innerHTML = `<h5>Veuillez remplir ce formulaire et l'envoyer pour recevoir votre commande</h5>
                      <form action="" method="POST">
                      <label for="name">Nom</label>
                      <input type="text" id="name" ></input><br>
@@ -117,46 +117,46 @@ function createForm(){
                      <input type="texte" id="email" ></input><br>
                      <small id="small-email"></small><br>
                      <button type ="submit" id="send">Cliquez ici, pour passer votre commande</button>
-                     </form>` 
+                     </form>`
 
 
     let butttonForm = document.createElement('button')
     document.querySelector('main').appendChild(butttonForm)
-    if (cartItems.length < 1){
+    if (cartItems.length < 1) {
         butttonForm.classList.add('hidden')
-    }else{
-        butttonForm.innerHTML = `finalisez votre commande` 
+    } else {
+        butttonForm.innerHTML = `finalisez votre commande`
     }
-        
-    butttonForm.addEventListener('click', function (){
+
+    butttonForm.addEventListener('click', function () {
         form.classList.remove('hidden')
-        butttonForm.classList.add('hidden')       
-    })  
-} 
-              
+        butttonForm.classList.add('hidden')
+    })
+}
+
 // fonction pour mettre nos nombres en décimal
-function decimNumber(data){
+function decimNumber(data) {
     let price = data.price / 100
-    let endPrice = price.toLocaleString("fr", {minimumFractionDigits: 2, maximumFractionDigits: 2})
+    let endPrice = price.toLocaleString("fr", { minimumFractionDigits: 2, maximumFractionDigits: 2 })
     return endPrice
 }
 
-function createGrateful(){
+function createGrateful() {
     let searchParam = new URLSearchParams(window.location.search)
     let firstName = searchParam.get('firstName')
     let lastName = searchParam.get('lastName')
     let idPostApi = searchParam.get('id')
 
-    let article = document.createElement(`article`) 
+    let article = document.createElement(`article`)
     document.querySelector("main").appendChild(article)
 
-    article.innerHTML = `Bonjour, <span class="color">${firstName +' '+ lastName}</span>,<br>
+    article.innerHTML = `Bonjour, <span class="color">${firstName + ' ' + lastName}</span>,<br>
                         Nous vous remercions pour votre commande numéro ${idPostApi}.<br>
                         Vos produits seront livrés dans un délais de 3 jours.<br>
                         Amicalement`
 }
 
-function serverDown(){
+function serverDown() {
     let article = document.createElement(`article`) // création de l'article principal
     document.querySelector("main").appendChild(article)
     article.innerHTML = `Serveur momentanément indisponible, veuillez nous excuser`

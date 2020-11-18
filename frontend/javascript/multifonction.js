@@ -29,27 +29,3 @@ function addItems(data) {
     }
 }
 
-function postOrder(commande) {
-    console.log(commande)
-    let data = send(`http://localhost:3000/api/teddies/order`, commande)
-    data.then(toApi => {
-
-        console.log(toApi)
-        /*let idPostApi = toApi.orderId
-        console.log(idPostApi)
-        console.log(object)
-
-
-        let productPostApi = products
-        console.log(productPostApi)
-
-        let firstName = contact.firstName
-        let lastName = contact.lastName
-
-        window.location = `commande.html?id=${idPostApi}&firstName=${firstName}&lastName=${lastName}&products=${productPostApi}`*/
-
-    })
-    .catch((err) => console.log(err))
-
-}
-

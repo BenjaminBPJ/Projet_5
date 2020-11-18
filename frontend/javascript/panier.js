@@ -1,9 +1,9 @@
-function cartPage(){
+function cartPage() {
     let data = request(`http://localhost:3000/api/teddies/`)
-    data.then(pagePanier =>{ 
-            createCart(pagePanier)    
-            makingForm(pagePanier)
-            removeItem(pagePanier)          
+    data.then(pagePanier => {
+        createCart(pagePanier)
+        makingForm(pagePanier)
+        removeItem(pagePanier)
     })
     /*.catch((err) =>{ 
         serverDown()
@@ -77,7 +77,8 @@ function validForm() {
     form.addEventListener('submit', function (e) {
         e.preventDefault()
         //if (nameValide(form.name) && firstNameValide(form.firstname) && adressValide(form.adress) && cityValide(form.city) && emailValide(form.email)) {
-            createItemForApi()
+        createItemForApi()
+        localStorage.clear()
         //}
     })
 
@@ -96,7 +97,7 @@ function validForm() {
     }
 
     function nameValide(inputName) {
-        let nameRegExp = new RegExp(`^[a-zàâéèëêïîôùüçœ\'’A_Z -]{1,60}$`, 'g')
+        let nameRegExp = new RegExp(`^[A-Za-zÀ-ÖØ-öø-ÿ-]+( {0,1}[A-Za-zÀ-ÖØ-öø-ÿ-]?){1,60}$`, 'g')
         let testName = nameRegExp.test(inputName.value)
         let small = document.getElementById(`small-name`)
         if (testName) {
@@ -109,7 +110,7 @@ function validForm() {
     }
 
     function firstNameValide(inputFirstName) {
-        let firstNameRegExp = new RegExp(`^[a-zàâéèëêïîôùüçœ\'’A_Z -]{1,60}$`, 'g')
+        let firstNameRegExp = new RegExp(`^[A-Za-zÀ-ÖØ-öø-ÿ-]+( {0,1}[A-Za-zÀ-ÖØ-öø-ÿ-]?){1,60}$`, 'g')
         let testFirstName = firstNameRegExp.test(inputFirstName.value)
         let small = document.getElementById(`small-firstname`)
         if (testFirstName) {
@@ -121,7 +122,7 @@ function validForm() {
         }
     }
     function cityValide(inputCity) {
-        let cityRegExp = new RegExp(`^[a-zàâéèëêïîôùüçœ\'’A_Z -]{1,60}$`, 'g')
+        let cityRegExp = new RegExp(`^[A-Za-zÀ-ÖØ-öø-ÿ-]+( {0,1}[A-Za-zÀ-ÖØ-öø-ÿ-]?){1,60}$`, 'g')
         let testCity = cityRegExp.test(inputCity.value)
         let small = document.getElementById(`small-city`)
         if (testCity) {
@@ -179,12 +180,12 @@ function createItemForApi() {
     postOrder(object)
 }
 
-function cleanCart(i){
+function cleanCart(i) {
     let cartItems = localStorage.getItem('productsInCart')
     cartItems = JSON.parse(cartItems)
 
     let button = document.getElementById("clean-cart")
-    button.addEventListener('click', function(){
+    button.addEventListener('click', function () {
         cartItems.splice(i, cartItems.length) //suppression de l'element i du tableau (= le bouton sur lequel on va avoir le addEventListener) 
         localStorage.clear() //on vide le storage avant de le mettre à jour
         localStorage.setItem("productsInCart", JSON.stringify(cartItems)) //maj du panier sans l'élément i
@@ -192,6 +193,28 @@ function cleanCart(i){
     })
 }
 
+function postOrder(commande) {
+    console.log(commande)
+    let data = send(`http://localhost:3000/api/teddies/order`, commande)
+    data.then(toApi => {
 
+        console.log(toApi)
+        /*let idPostApi = toApi.orderId
+        console.log(idPostApi)
+        console.log(object)
+
+
+        let productPostApi = products
+        console.log(productPostApi)
+
+        let firstName = contact.firstName
+        let lastName = contact.lastName
+
+        window.location = `commande.html?id=${idPostApi}&firstName=${firstName}&lastName=${lastName}&products=${productPostApi}`*/
+
+    })
+        .catch((err) => console.log(err))
+
+}
 
 
