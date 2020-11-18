@@ -27,7 +27,6 @@ function removeItem() { // fonction servant à supprimer un élément du tableau
         })
     }
 }
-
 function deleteClick(i) {
     let cartItems = localStorage.getItem('productsInCart')
     cartItems = JSON.parse(cartItems)
@@ -35,6 +34,13 @@ function deleteClick(i) {
     localStorage.clear() //on vide le storage avant de le mettre à jour
     localStorage.setItem("productsInCart", JSON.stringify(cartItems)) //maj du panier sans l'élément i
     window.location.reload()
+}
+function cleanCart() {
+    let button = document.getElementById("clean-cart")
+    button.addEventListener('click', function () {
+        cleanTheCart()
+        window.location.reload()
+    })
 }
 
 function reloadPrice() {
@@ -48,6 +54,15 @@ function reloadPrice() {
 
     tfoot.innerHTML = `<td colspan="4">Total de la commande : ${sumVal.toLocaleString("fr", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</td>`
 }
+
+function cleanTheCart(i){
+    let cartItems = localStorage.getItem('productsInCart')
+    cartItems = JSON.parse(cartItems)
+    cartItems.splice(i, cartItems.length) //suppression de l'element i du tableau (= le bouton sur lequel on va avoir le addEventListener) 
+    localStorage.clear() //on vide le storage avant de le mettre à jour
+    localStorage.setItem("productsInCart", JSON.stringify(cartItems)) //maj du panier sans l'élément i
+}
+
 function makingForm() {
     createForm()
     validForm()
@@ -76,10 +91,9 @@ function validForm() {
     // validation du formulaire avec le bouton //
     form.addEventListener('submit', function (e) {
         e.preventDefault()
-        //if (nameValide(form.name) && firstNameValide(form.firstname) && adressValide(form.adress) && cityValide(form.city) && emailValide(form.email)) {
-        createItemForApi()
-        localStorage.clear()
-        //}
+        if (nameValide(form.name) && firstNameValide(form.firstname) && adressValide(form.adress) && cityValide(form.city) && emailValide(form.email)) {           
+            createItemForApi()
+        }
     })
 
     function emailValide(inputEmail) {
@@ -178,43 +192,29 @@ function createItemForApi() {
         products,
     }
     postOrder(object)
+
 }
-
-function cleanCart(i) {
-    let cartItems = localStorage.getItem('productsInCart')
-    cartItems = JSON.parse(cartItems)
-
-    let button = document.getElementById("clean-cart")
-    button.addEventListener('click', function () {
-        cartItems.splice(i, cartItems.length) //suppression de l'element i du tableau (= le bouton sur lequel on va avoir le addEventListener) 
-        localStorage.clear() //on vide le storage avant de le mettre à jour
-        localStorage.setItem("productsInCart", JSON.stringify(cartItems)) //maj du panier sans l'élément i
-        window.location.reload()
-    })
-}
-
-function postOrder(commande) {
-    console.log(commande)
-    let data = send(`http://localhost:3000/api/teddies/order`, commande)
-    data.then(toApi => {
+function postOrder(object) {
+    let data = send(`http://localhost:3000/api/teddies/order`, object )
+    console.log(object)
+    data.then( toApi => {
 
         console.log(toApi)
-        /*let idPostApi = toApi.orderId
+        let idPostApi = toApi.orderId
         console.log(idPostApi)
-        console.log(object)
 
-
-        let productPostApi = products
+       /* let productPostApi = products
         console.log(productPostApi)
 
         let firstName = contact.firstName
-        let lastName = contact.lastName
+        let lastName = contact.lastName */
 
-        window.location = `commande.html?id=${idPostApi}&firstName=${firstName}&lastName=${lastName}&products=${productPostApi}`*/
+        window.location = `commande.html`
+        //?id=${idPostApi}&firstName=${firstName}&lastName=${lastName}&products=${productPostApi}`
 
     })
-        .catch((err) => console.log(err))
-
+    .catch((err) => console.log(err))
 }
+
 
 

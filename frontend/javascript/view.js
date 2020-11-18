@@ -146,6 +146,7 @@ function createGrateful() {
     let firstName = searchParam.get('firstName')
     let lastName = searchParam.get('lastName')
     let idPostApi = searchParam.get('id')
+    let productPostApi = searchParam.get('products')
 
     let article = document.createElement(`article`)
     document.querySelector("main").appendChild(article)
@@ -153,7 +154,7 @@ function createGrateful() {
     article.innerHTML = `Bonjour, <span class="color">${firstName + ' ' + lastName}</span>,<br>
                         Nous vous remercions pour votre commande numéro ${idPostApi}.<br>
                         Vos produits seront livrés dans un délais de 3 jours.<br>
-                        Amicalement`
+                        Amicalement${productPostApi}`
 }
 
 function serverDown() {
