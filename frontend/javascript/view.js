@@ -86,6 +86,9 @@ function createCart() {
             tfoot.innerHTML = `<td colspan="4">Total de la commande : ${sumVal.toLocaleString("fr", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €<br>
                           <button id="clean-cart">Vider le panier</button></td>`
             cleanCart()
+
+            sumVal = JSON.parse(sumVal) // création du prix dans le localstorage pour le reprendre dans la commande plus tard
+            sumVal = localStorage.setItem('totalCost', sumVal)
         }
     }
 }
@@ -146,15 +149,15 @@ function createGrateful() {
     let firstName = searchParam.get('firstName')
     let lastName = searchParam.get('lastName')
     let idPostApi = searchParam.get('id')
-    let productPostApi = searchParam.get('products')
+    let price = JSON.parse(localStorage.getItem('totalCost'))
 
     let article = document.createElement(`article`)
     document.querySelector("main").appendChild(article)
 
     article.innerHTML = `Bonjour, <span class="color">${firstName + ' ' + lastName}</span>,<br>
-                        Nous vous remercions pour votre commande numéro ${idPostApi}.<br>
+                        Nous vous remercions pour votre commande numéro ${idPostApi}, d'un montant de ${price.toLocaleString("fr", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €<br>
                         Vos produits seront livrés dans un délais de 3 jours.<br>
-                        Amicalement${productPostApi}`
+                        Amicalement`
 }
 
 function serverDown() {
