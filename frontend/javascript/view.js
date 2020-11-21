@@ -146,17 +146,15 @@ function decimNumber(data) {
 
 function createGrateful() {
     let searchParam = new URLSearchParams(window.location.search)
-    let firstName = searchParam.get('firstName')
-    let lastName = searchParam.get('lastName')
     let idPostApi = searchParam.get('id')
     let price = JSON.parse(localStorage.getItem('totalCost'))
+    let customer = JSON.stringify(localStorage.getItem('client'))
 
     let article = document.createElement(`article`)
     document.querySelector("main").appendChild(article)
 
-    article.innerHTML = `Bonjour, <span class="color">${firstName + ' ' + lastName}</span>,<br>
-                        Nous vous remercions pour votre commande numéro ${idPostApi}, d'un montant de ${price.toLocaleString("fr", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €<br>
-                        Vos produits seront livrés dans un délais de 3 jours.<br>
+    article.innerHTML = `Bonjour <span class="color">${customer}</span>,<br>
+                        Nous vous remercions pour votre confiance, votre commande numéro ${idPostApi}, d'un montant de ${price.toLocaleString("fr", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} € sera livrée dans un délais de 3 jours.<br>
                         Amicalement`
 }
 

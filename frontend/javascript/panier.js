@@ -5,10 +5,10 @@ function cartPage() {
         makingForm(pagePanier)
         removeItem(pagePanier)
     })
-    /*.catch((err) =>{ 
-        serverDown()
-        console.log(`pas de serveur:${err}`)
-    })*/
+        .catch((err) => {
+            serverDown()
+            console.log(`pas de serveur:${err}`)
+        })
 }
 
 cartPage()
@@ -55,7 +55,7 @@ function reloadPrice() {
     tfoot.innerHTML = `<td colspan="4">Total de la commande : ${sumVal.toLocaleString("fr", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</td>`
 }
 
-function cleanTheCart(i){
+function cleanTheCart(i) {
     let cartItems = localStorage.getItem('productsInCart')
     cartItems = JSON.parse(cartItems)
     cartItems.splice(i, cartItems.length) //suppression de l'element i du tableau (= le bouton sur lequel on va avoir le addEventListener) 
@@ -91,7 +91,7 @@ function validForm() {
     // validation du formulaire avec le bouton //
     form.addEventListener('submit', function (e) {
         e.preventDefault()
-        if (nameValide(form.name) && firstNameValide(form.firstname) && adressValide(form.adress) && cityValide(form.city) && emailValide(form.email)) {           
+        if (nameValide(form.name) && firstNameValide(form.firstname) && adressValide(form.adress) && cityValide(form.city) && emailValide(form.email)) {
             createItemForApi()
         }
     })
@@ -148,7 +148,7 @@ function validForm() {
         }
     }
     function adressValide(inputAdress) {
-        let adressRegExp = new RegExp(`^[a-zàâéèëêïîôùüçœ\'’A_Z0-9-]+`, 'g')
+        let adressRegExp = new RegExp(`^[A-Za-zÀ-ÖØ-öø-ÿ0-9-]+`, 'g')
         let testAdress = adressRegExp.test(inputAdress.value)
         let small = document.getElementById(`small-adress`)
         if (testAdress) {
@@ -168,6 +168,7 @@ function createItemForApi() {
     // j'envoie les produit dans mon tableau
     let cartItems = localStorage.getItem('productsInCart')
     cartItems = JSON.parse(cartItems)
+
     for (i = 0; i < cartItems.length; i++) {
         products.push(cartItems[i].id)
     }
@@ -182,7 +183,7 @@ function createItemForApi() {
     let contact = {
         firstName: name,
         lastName: firstName,
-        adress: adress,
+        address: adress,
         city: city,
         email: email,
     }
@@ -192,28 +193,30 @@ function createItemForApi() {
         products,
     }
     postOrder(object)
+    let customer = localStorage.setItem('client', contact.firstName + ' ' + contact.lastName)
+    customer = JSON.stringify(customer)
+
+
 
 }
 function postOrder(object) {
-    let data = send(`http://localhost:3000/api/teddies/order`, object )
+    let data = send(`http://localhost:3000/api/teddies/order`, object)
     console.log(object)
-    data.then( toApi => {
+    data.then(toApi => {
 
         console.log(toApi)
         let idPostApi = toApi.orderId
         console.log(idPostApi)
 
-       /* let productPostApi = products
-        console.log(productPostApi)
-
-        let firstName = contact.firstName
-        let lastName = contact.lastName */
-
-        window.location = `commande.html`
-        //?id=${idPostApi}&firstName=${firstName}&lastName=${lastName}&products=${productPostApi}`
+        window.location = `commande.html?id=${idPostApi}`
 
     })
-    .catch((err) => console.log(err))
+        .catch((err) => {
+            let article = document.createElement(`article`) // création de l'article principal
+            document.querySelector("main").appendChild(article)
+            article.innerHTML = `impossible d'accéder à votre requête : ${err}`
+            console.log(`pas de serveur:${err}`)
+        })
 }
 
 

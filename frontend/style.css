@@ -154,4 +154,7 @@ td{
     .header{
         display: block;
     }
+    select{
+        width: 8em;
+    }
 }

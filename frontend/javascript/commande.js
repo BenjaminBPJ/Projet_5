@@ -1,7 +1,7 @@
 createGrateful()
 cleanTheCart()
 
-function cleanTheCart(i){
+function cleanTheCart(i) {
     let cartItems = localStorage.getItem('productsInCart')
     cartItems = JSON.parse(cartItems)
     cartItems.splice(i, cartItems.length) //suppression de l'element i du tableau (= le bouton sur lequel on va avoir le addEventListener) 
