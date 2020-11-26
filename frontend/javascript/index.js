@@ -5,9 +5,8 @@ function listeProduct() {
             createCardProduct(product)
         })
     })
-        .catch((err) => {
+        .catch(() => {
             serverDown()
-            console.log(`pas de serveur:${err}`)
         })
 }
 

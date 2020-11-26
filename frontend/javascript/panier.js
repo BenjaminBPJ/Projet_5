@@ -5,10 +5,9 @@ function cartPage() {
         makingForm(pagePanier)
         removeItem(pagePanier)
     })
-        .catch((err) => {
-            serverDown()
-            console.log(`pas de serveur:${err}`)
-        })
+    .catch(() => {
+        serverDown()
+    })
 }
 
 cartPage()
@@ -50,7 +49,6 @@ function reloadPrice() {
     for (i = 0; i < row.rows.length; i++) {
         sumVal = sumVal + parseInt(row.rows[i].cells[2].innerHTML)
     }
-    console.log(sumVal)
 
     tfoot.innerHTML = `<td colspan="4">Total de la commande : ${sumVal.toLocaleString("fr", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €</td>`
 }
@@ -70,7 +68,6 @@ function makingForm() {
 
 function validForm() {
     let form = document.getElementById("formulaire")
-    console.log(form)
     // validation du formulaire
     form.name.addEventListener('change', function () {
         nameValide(this)
@@ -168,11 +165,10 @@ function createItemForApi() {
     // j'envoie les produit dans mon tableau
     let cartItems = localStorage.getItem('productsInCart')
     cartItems = JSON.parse(cartItems)
-
     for (i = 0; i < cartItems.length; i++) {
         products.push(cartItems[i].id)
     }
-    console.log(products)
+
     // recuperations des input que je met dans un objet contact
     let name = document.getElementById("name").value
     let firstName = document.getElementById("firstname").value
@@ -195,27 +191,16 @@ function createItemForApi() {
     postOrder(object)
     let customer = localStorage.setItem('client', contact.firstName + ' ' + contact.lastName)
     customer = JSON.stringify(customer)
-
-
-
 }
+
 function postOrder(object) {
     let data = send(`http://localhost:3000/api/teddies/order`, object)
-    console.log(object)
     data.then(toApi => {
-
-        console.log(toApi)
         let idPostApi = toApi.orderId
-        console.log(idPostApi)
-
         window.location = `commande.html?id=${idPostApi}`
-
     })
         .catch((err) => {
-            let article = document.createElement(`article`) // création de l'article principal
-            document.querySelector("main").appendChild(article)
-            article.innerHTML = `impossible d'accéder à votre requête : ${err}`
-            console.log(`pas de serveur:${err}`)
+            serverDown() 
         })
 }
 

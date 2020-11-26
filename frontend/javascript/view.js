@@ -74,14 +74,13 @@ function createCart() {
             row.innerHTML += `<td class="img-panier"><img class="teddy-panier" src="${cartItems[i].image}"></td>
                               <td class="produit-name-panier">${cartItems[i].name}</td>
                               <td class="prix-produit-panier">${decimNumber(cartItems[i])} €</td>
-                              <td><button class="remove-button">Supprimer</button></td>`
+                              <td><button class="remove-button">X</button></td>`
 
 
             let sumVal = 0
             for (i = 0; i < row.rows.length; i++) {
                 sumVal = sumVal + parseInt(row.rows[i].cells[2].innerHTML)
             }
-            console.log(sumVal)
 
             tfoot.innerHTML = `<td colspan="4">Total de la commande : ${sumVal.toLocaleString("fr", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} €<br>
                           <button id="clean-cart">Vider le panier</button></td>`
