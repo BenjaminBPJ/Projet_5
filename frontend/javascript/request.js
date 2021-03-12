@@ -7,8 +7,6 @@ async function request(url) {
     return data
 }
 
-
-
 async function send(url, data) {
     let response = await fetch(url, {
         method: "POST",

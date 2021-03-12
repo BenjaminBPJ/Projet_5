@@ -199,7 +199,7 @@ function postOrder(object) {
         let idPostApi = toApi.orderId
         window.location = `commande.html?id=${idPostApi}`
     })
-        .catch((err) => {
+        .catch(() => {
             serverDown() 
         })
 }

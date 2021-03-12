@@ -116,7 +116,7 @@ function createForm() {
                      <input type="text" id="city" ></input><br>
                      <small id="small-city"></small><br>
                      <label for="email">E-mail</label>
-                     <input type="texte" id="email" ></input><br>
+                     <input type="email" id="email" ></input><br>
                      <small id="small-email"></small><br>
                      <button type ="submit" id="send">Cliquez ici, pour passer votre commande</button>
                      </form>`
